@@ -1,0 +1,88 @@
+/* Estilo general para el formulario */
+.reportar-body {
+  background-color: #502171;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-container {
+  background-color: white; /* ensure solid white */
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2; /* stay above background assets */
+}
+
+.form-logo {
+  display: block;
+  margin: 0 auto 1rem auto;
+  width: 120px;
+}
+
+.back-button {
+  background-color: #502171;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: #502171;
+}
+
+h2 {
+  text-align: center;
+  color: #502171;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  padding: 0.6rem;
+  margin: 0.2rem 0 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+label {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #502171;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-primary {
+  background-color: #502171;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #67428a;
+}

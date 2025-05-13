@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Usuario</title>
+  <link rel="stylesheet" href="/static/index.css">
+  <style>
+    body {
+      position: relative;
+    }
+
+    .user-info {
+      position: fixed;
+      top: 1rem;
+      right: 1.5rem;
+      background-color: white;
+      color: #502171;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-size: 0.9rem;
+      z-index: 1000;
+    }
+  </style>
+</head>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("/assets-list")
+      .then(res => res.json())
+      .then(images => {
+        images.forEach(() => {
+          const img = document.createElement("img");
+          img.src = images[Math.floor(Math.random() * images.length)];
+          img.className = "floating-img";
+          img.style.top = `${Math.random() * 100}vh`;
+          img.style.left = `${Math.random() * 100}vw`;
+          img.style.transform = `rotate(${Math.random() * 360}deg)`;
+          img.style.width = `${40 + Math.random() * 40}px`;
+          img.style.position = "absolute";
+          img.style.opacity = "1.0";
+          img.style.pointerEvents = "none";
+          img.style.zIndex = "0";
+          document.body.appendChild(img);
+        });
+      });
+  });
+</script>
+
+<body>
+  <div class="user-info">
+    Usuario: {{ name }}
+  </div>
+
+  <div class="dashboard-container">
+    <div class="dashboard-card">
+      <img src="/static/mdlz_white.png" alt="Logo" class="dashboard-logo">
+
+      <h1 class="dashboard-title">¡Hola {{ name }}!</h1>
+      <p class="dashboard-subtitle">¿Qué deseas hacer hoy?</p>
+
+      <form class="dashboard-actions" action="/navigate" method="post">
+        <button class="btn-primary" name="action" value="reportar">Reportar nueva parada</button>
+        <button class="btn-secondary" name="action" value="modificar">Modificar reporte pasado</button>
+
+        {% if role == "admin" %}
+        <button class="btn-secondary" name="action" value="ver_todos">Ver todos los reportes</button>
+        <button class="btn-secondary" name="action" value="admin_usuarios">Administrar Usuarios</button>
+        {% endif %}
+
+        <button class="btn-logout" name="action" value="logout">Cerrar sesión</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

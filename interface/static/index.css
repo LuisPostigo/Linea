@@ -1,0 +1,90 @@
+/* Panel general */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #502171;  /* Set to your purple */
+  color: #333;
+}
+
+/* Contenedor del panel */
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Tarjeta principal */
+.dashboard-card {
+  background-color: white; /* solid white background */
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 460px;
+  width: 90%;
+  text-align: center;
+  z-index: 2;
+  position: relative; /* ensure it appears above background images */
+}
+
+
+/* Logo en panel */
+.dashboard-logo {
+  width: 120px;
+  margin-bottom: 1.5rem;
+}
+
+/* Títulos */
+.dashboard-title {
+  font-size: 2rem;
+  color: #502171;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* Botones */
+.dashboard-actions button {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.dashboard-actions .btn-primary {
+  background-color: #502171;
+  color: white;
+}
+
+.dashboard-actions .btn-primary:hover {
+  background-color: #67428a;
+}
+
+.dashboard-actions .btn-secondary {
+  background-color: #e0e0e0;
+  color: #222;
+}
+
+.dashboard-actions .btn-secondary:hover {
+  background-color: #d5d5d5;
+}
+
+.dashboard-actions .btn-logout {
+  background-color: white;
+  color: #502171;
+  border: 2px solid #502171;
+}
+
+.dashboard-actions .btn-logout:hover {
+  background-color: #f7f7f7;
+}

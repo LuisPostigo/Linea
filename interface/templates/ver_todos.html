@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ver Todos los Reportes</title>
+  <link rel="stylesheet" href="/static/index.css">
+  <style>
+    .dashboard-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      min-height: 100vh;
+      background-color: #502171;
+    }
+
+    .dashboard-card {
+      background: white;
+      padding: 2.5rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 90vw;
+      min-height: 80vh;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .dashboard-card .back-button {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background-color: #502171;
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.4rem 0.9rem;
+      border: 2px solid #502171;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-card .back-button:hover {
+      background-color: white;
+      color: #502171;
+    }
+
+    .dashboard-logo {
+      width: 120px;
+      margin-bottom: 1.5rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .dashboard-title {
+      font-size: 1.8rem;
+      color: #502171;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #eee;
+      color: #333;
+    }
+
+    .btn-primary {
+      background-color: #502171;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: #67428a;
+    }
+
+    .alert-empty {
+      background-color: #ffe6e6;
+      color: #a33;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="dashboard-container">
+  <div class="dashboard-card">
+    <a href="/" class="back-button">← Volver</a>
+
+    <img src="/static/mdlz_white.png" alt="Logo" class="dashboard-logo">
+    <h1 class="dashboard-title">Todos los reportes enviados</h1>
+
+    {% if reportes %}
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Fecha Inicio</th>
+            <th>Material</th>
+            <th>Batch</th>
+            <th>Consecuencia</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for origin_id, entries in reportes.items() %}
+            {% set latest = entries[0] %}
+            <tr>
+              <td>{{ latest.Usuario }}</td>
+              <td>{{ latest.Fecha_de_inicio }}</td>
+              <td>{{ latest.Material }}</td>
+              <td>{{ latest.Batch }}</td>
+              <td>{{ latest.Consecuencia }}</td>
+              <td>
+                <form action="/editar-reporte" method="get" style="margin: 0;">
+                  <input type="hidden" name="reporte_id" value="{{ latest.id }}">
+                  <button type="submit" class="btn-primary">Modificar</button>
+                </form>
+              </td>
+            </tr>
+
+            {% for mod in entries[1:] %}
+            <tr style="background-color: #f3f0fa;">
+              <td>{{ mod.Usuario }}</td>
+              <td>{{ mod.Fecha_de_inicio }}</td>
+              <td>{{ mod.Material }}</td>
+              <td>{{ mod.Batch }}</td>
+              <td>{{ mod.Consecuencia }}</td>
+              <td style="font-style: italic; color: gray;">Modificado</td>
+            </tr>
+            {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert-empty">
+        No se encontraron reportes en el sistema.
+      </div>
+    {% endif %}
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reportar nueva parada</title>
+  <link rel="stylesheet" href="/static/reportar.css">
+</head>
+<body class="reportar-body">
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("/assets-list")
+      .then(res => res.json())
+      .then(images => {
+        images.forEach(() => {
+          const img = document.createElement("img");
+          img.src = images[Math.floor(Math.random() * images.length)];
+          img.className = "floating-img";
+          img.style.top = `${Math.random() * 100}vh`;
+          img.style.left = `${Math.random() * 100}vw`;
+          img.style.transform = `rotate(${Math.random() * 360}deg)`;
+          img.style.width = `${40 + Math.random() * 40}px`;
+          img.style.position = "absolute";
+          img.style.opacity = "1.0";
+          img.style.pointerEvents = "none";
+          img.style.zIndex = "0";
+          document.body.appendChild(img);
+        });
+      });
+  });
+</script>
+
+<div class="form-container">
+  <div class="form-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+    <a href="/" class="back-button">← Volver</a>
+    <img src="/static/mdlz_white.png" class="form-logo" alt="Logo">
+  </div>
+  <h2>Reportar Nueva Parada</h2>
+
+  <form method="post" action="/guardar-reporte">
+    {% if data %}
+      <input type="hidden" name="id_origen" value="{{ data.id }}">
+    {% endif %}
+
+    <label for="planta">Planta</label>
+    <input type="text" name="planta" id="planta" value="{{ data.Planta if data else '8373' }}" required>
+
+    <label for="periodo">Periodo</label>
+    <input type="text" name="periodo" id="periodo" value="{{ data.Periodo if data else '' }}" required>
+
+    <label for="fecha_inicio">Fecha de inicio</label>
+    <input type="datetime-local" name="fecha_inicio" id="fecha_inicio" value="{{ data.Fecha_de_inicio[:16] if data else '' }}" required>
+
+    <label for="fecha_termino">Fecha de término</label>
+    <input type="datetime-local" name="fecha_termino" id="fecha_termino" value="{{ data.Fecha_de_termino[:16] if data else '' }}" required>
+
+    <label for="material">Material</label>
+    <input type="text" name="material" id="material" value="{{ data.Material if data else '' }}" required>
+
+    <label for="descripcion">Descripción del material</label>
+    <input type="text" name="descripcion" id="descripcion" value="{{ data.Descripcion_del_material if data else '' }}" required>
+
+    <label for="batch">Batch</label>
+    <input type="text" name="batch" id="batch" value="{{ data.Batch if data else '' }}" required>
+
+    <label for="vendedor">Vendedor</label>
+    <input type="text" name="vendedor" id="vendedor" value="{{ data.Vendedor if data else '' }}" required>
+
+    <label for="complain_qty">Complain Qty</label>
+    <input type="text" name="complain_qty" id="complain_qty" value="{{ data.Complain_Qty if data else '' }}" required>
+
+    <label for="tiempo_parada">Tiempo de parada</label>
+    <input type="text" name="tiempo_parada" id="tiempo_parada" value="{{ data.Tiempo_de_parada if data else '' }}" required>
+
+    <label for="consecuencia">Consecuencia</label>
+    <select name="consecuencia" id="consecuencia" required>
+      <option value="">Selecciona una opción</option>
+      <option value="ninguna" {% if data and data.Consecuencia == "ninguna" %}selected{% endif %}>Ninguna</option>
+      <option value="Se rechazó la materia prima" {% if data and data.Consecuencia == "Se rechazó la materia prima" %}selected{% endif %}>Se rechazó la materia prima</option>
+      <option value="Se rechazó la masa" {% if data and data.Consecuencia == "Se rechazó la masa" %}selected{% endif %}>Se rechazó la masa</option>
+      <option value="Se rechazó el packaging" {% if data and data.Consecuencia == "Se rechazó el packaging" %}selected{% endif %}>Se rechazó el packaging</option>
+    </select>
+
+    <button type="submit" class="btn-primary">Enviar</button>
+  </form>
+</div>
+</body>
+</html>
